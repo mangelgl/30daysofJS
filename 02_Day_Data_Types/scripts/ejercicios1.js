@@ -44,8 +44,7 @@ console.log("13 ->", desafio.charAt(15));
 console.log("14 ->", desafio.charCodeAt(desafio.indexOf("J")));
 console.log("15 ->", desafio.indexOf("a"));
 console.log("16 ->", desafio.lastIndexOf("a"));
-let oracion =
-  "No puedes terminar una oración con porque porque porque es una conjunción";
+let oracion = "No puedes terminar una oración con porque porque porque es una conjunción";
 console.log("17 ->", oracion.indexOf("porque"));
 console.log("18 ->", oracion.lastIndexOf("porque"));
 console.log("19 ->", oracion.search("porque"));
