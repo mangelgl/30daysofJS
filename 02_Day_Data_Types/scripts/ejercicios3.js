@@ -23,7 +23,29 @@ let pattern3 = /[%$@#&;]*/g;
 let sentenceReplace = sentence.replace(pattern3, "");
 let pattern4 = /[^\s.,?!][\w]*/g;
 let result = sentenceReplace.match(pattern4);
-console.log("3 ->", result);
+// Most frequent word in Array
+function findMostFrequest(arr) {
+  let compare = "";
+  let mostFreq = "";
+
+  arr.reduce((acc, val) => {
+    if (val in acc) {
+      // if key already exists
+      acc[val]++; // then increment it by 1
+    } else {
+      acc[val] = 1; // or else create a key with value 1
+    }
+    if (acc[val] > compare) {
+      // if value of that key is greater
+      // than the compare value.
+      compare = acc[val]; // than make it a new compare value.
+      mostFreq = val; // also make that key most frequent.
+    }
+    return acc;
+  }, {});
+  return mostFreq;
+}
+console.log("3 ->", findMostFrequest(result));
 
 let pattern2 = /\d+/g;
 let digits = "He earns 5000 euro from salary per month, 10000 euro annual bonus, 1500 euro online courses per month.".match(pattern2);
