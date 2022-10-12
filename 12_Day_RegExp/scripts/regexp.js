@@ -147,3 +147,24 @@ console.log(matches); // ["Apple", index: 0, input: "Apple and banana are fruits
  * /[Aa]pple|[Bb]anana/g
  * ["Apple", "banana", "apple", "banana", "Banana"]
  */
+
+/**
+ * Escape (\) character
+ * const pattern = /\d/g  // d is a special character which means digits
+ * const txt = 'This regular expression example was made in January 12,  2020.'
+ * const matches = txt. match(pattern)
+ * console.log(matches)  // ["1", "2", "2", "0", "2", "0"], this is not what we want
+ *
+ * const pattern = /\d+/g  // d is a special character which means digits
+ * console.log(matches)  // ["12", "2020"], this is what we want
+ */
+
+/**
+ * Exact match
+ * Debe tener ^ al principio y $ al final.
+ */
+let patternM = /^[A-Z][a-z]{3,12}$/;
+let name8 = "Asabeneh";
+let resultM = patternM.test(name8);
+
+console.log(resultM); // true
