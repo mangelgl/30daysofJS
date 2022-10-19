@@ -94,15 +94,5 @@ square(2); // Promise {<resolved>: 4}
 /**
  * ¿Cómo accedemos al valor desde la promesa? Para acceder al valor usamos la palabra clave await.
  */
-
-const fetchData = async () => {
-    try {
-        const response = await fetch(url);
-        const countries = await response.json();
-        console.log(countries);
-    } catch (err) {
-        console.error(err);
-    }
-};
-console.log("===== async and await");
-fetchData();
+// const value = await square(2);
+// console.log(value); // 4
