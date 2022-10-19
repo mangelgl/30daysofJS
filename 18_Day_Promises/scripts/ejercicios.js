@@ -45,27 +45,60 @@ console.log("Ejercicios nivel 3");
 const fetchCats = async () => {
     try {
         const response = await fetch(catsAPI);
-        const data = await response.json();
-        let averageWeight = data.map((element) => {
+        const catsData = await response.json();
+        let metricWeightArr = catsData.map((element) => {
             return element.weight.metric;
         });
-        let setW = new Set(averageWeight);
-        let counts = [];
-        for (const weigth of setW) {
-            const orderedList = averageWeight.filter((el) => el === weigth);
-            counts.push({ weigth: weigth, count: orderedList.length });
+        let setMetricWeight = new Set(metricWeightArr);
+        let metricsCount = [];
+        for (const element of setMetricWeight) {
+            const filteredWeight = metricWeightArr.filter((el) => el === element);
+            metricsCount.push({ weigth: element, count: filteredWeight.length });
         }
-        console.log(counts);
+        console.log(metricsCount);
     } catch (error) {
         console.error(error);
     }
 };
 fetchCats();
-//console.log(averageWeight);
 /**
  * Read the countries api and find out the 10 largest countries
  */
-
+const tenLargesCountries = async () => {
+    try {
+        const response = await fetch(countriesAPI);
+        const countriesData = await response.json();
+        let populationArr = countriesData.map((element) => {
+            return { name: element.name, population: element.population };
+        });
+        let populationArrSorted = populationArr.sort((a, b) => {
+            if (a.population > b.population) return -1;
+            if (a.population < b.population) return 1;
+            return 0;
+        });
+        let tenLargesCountriesArr = populationArrSorted.filter((el, index) => index < 10);
+        console.log(countriesData);
+    } catch (error) {
+        console.error(error);
+    }
+};
+tenLargesCountries();
 /**
  * Read the countries api and count total number of languages in the world used as officials
  */
+const totalLanguages = async () => {
+    const response = await fetch(countriesAPI);
+    const countriesData = await response.json();
+    let languagesArr = countriesData.map((element) => {
+        return { name: element.name, languages: element.languages };
+    });
+    let languagesArrSorted = languagesArr
+        .sort((a, b) => {
+            if (a.languages.length > b.languages.length) return -1;
+            if (a.languages.length < b.languages.length) return 1;
+            return 0;
+        })
+        .filter((element, index) => index < 10);
+    console.log(languagesArrSorted);
+};
+totalLanguages();
