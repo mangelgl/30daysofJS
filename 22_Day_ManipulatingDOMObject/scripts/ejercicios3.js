@@ -23,8 +23,16 @@ const mostrarFecha = async () => {
     }, 1000);
 };
 
+const modifyTitulo = () => {
+    const primerTitulo = document.querySelector("h1");
+    const textoTitulo = primerTitulo.textContent.substring(0, primerTitulo.textContent.indexOf("2022"));
+    const fechaTitulo = primerTitulo.textContent.substring(primerTitulo.textContent.indexOf("2022"));
+    primerTitulo.innerHTML = textoTitulo + `<span style="font-size: 60px;">${fechaTitulo}</span>`;
+};
+
 // Creación de la cabecera
 let date = new Date(),
+    divCabecera = document.createElement("div"),
     titulo = document.createElement("h1"),
     subtitulo = document.createElement("p"),
     titulofecha = document.createElement("p");
@@ -32,12 +40,23 @@ let date = new Date(),
 // Se añade el contenido de los títulos
 titulo.textContent = `${data.challengeTitle} in ${date.getFullYear()}`;
 subtitulo.textContent = data.challengeSubtitle;
-titulofecha.setAttribute("id", "fecha");
+
+// Estilos para la cabecera
+subtitulo.style.textDecoration = "underline";
+titulofecha.id = "fecha";
+titulofecha.style.margin = "0 auto 10px auto";
+titulofecha.style.width = "fit-content";
+titulofecha.style.backgroundColor = "blue";
+titulofecha.style.padding = "5px";
+divCabecera.style.margin = "auto";
+divCabecera.style.textAlign = "center";
 
 // Se añade la cabecera al DOM
-document.body.appendChild(titulo);
-document.body.appendChild(subtitulo);
-document.body.appendChild(titulofecha);
+document.body.appendChild(divCabecera);
+divCabecera.appendChild(titulo);
+divCabecera.appendChild(subtitulo);
+divCabecera.appendChild(titulofecha);
+modifyTitulo();
 
 // Creación de la tabla de desafíos
 let tablaDesafios = document.createElement("table"),
@@ -45,11 +64,11 @@ let tablaDesafios = document.createElement("table"),
     challenges = data.challenges;
 document.body.appendChild(tablaDesafios); // Se añade la tabla al DOM
 // tablaDesafios.setAttribute("border", "1");
-tablaDesafios.setAttribute("style", "width: 800px; margin: auto;");
+tablaDesafios.setAttribute("border", "1");
+tablaDesafios.setAttribute("style", "width: 800px; margin: auto; border-collapse: collapse; border: none;");
 for (let i = 0; i < challenges.length; i++) {
     let row = document.createElement("tr");
     tablaDesafios.appendChild(row); // Se añade la fila a la tabla
-    row.setAttribute("style", "padding: 15px;");
 
     for (let j = 0; j < tableColumns; j++) {
         let column = document.createElement("td"),
@@ -92,11 +111,30 @@ for (let i = 0; i < challenges.length; i++) {
             if (status.toLowerCase() == "coming") {
                 color = "#FD5E53";
             }
-            row.setAttribute("style", "background-color: " + color + ";");
+            // column.style.textAlign = "right";
+            row.setAttribute("style", "background-color: " + color + "; padding: 15px; margin-bottom: 5px; border-bottom: 2px solid white;");
         }
         row.appendChild(column); // Se añade la columna a la fila
     }
-    document.querySelectorAll("td").forEach((t) => (t.style.padding = "15px"));
+    document.querySelectorAll("td").forEach((t) => t.setAttribute("style", "padding: 15px; border-right: none; border-left: none;"));
 }
 
+// Cambio de fondos por cada segundo
+const fecha = document.querySelector("span");
+const horayfecha = document.getElementById("fecha");
+const colors = ["blue", "red", "yellow", "gray", "brown", "pink", "violet", "green"];
+let i = 0;
+const cambiarFondoPorSegundo = async () => {
+    await setInterval(() => {
+        horayfecha.style.backgroundColor = colors[i];
+        fecha.style.color = colors[i];
+        if (i != colors.length - 1) {
+            i++;
+        } else {
+            i = 0;
+        }
+    }, 1000);
+};
+
 mostrarFecha();
+cambiarFondoPorSegundo();
