@@ -119,6 +119,87 @@ for (let i = 0; i < challenges.length; i++) {
     document.querySelectorAll("td").forEach((t) => t.setAttribute("style", "padding: 15px; border-right: none; border-left: none;"));
 }
 
+// Pie de página
+let divFooterContainer = document.createElement("div"),
+    divFooterAuthor = document.createElement("div"),
+    divFooterKeywords = document.createElement("div");
+divFooterContainer.id = "footer";
+
+// Estilos del pie de página
+divFooterContainer.style.margin = "20px auto 0px auto";
+divFooterContainer.style.width = "800px";
+divFooterContainer.style.height = "auto";
+divFooterContainer.style.backgroundColor = "blue";
+divFooterAuthor.style.width = "auto";
+divFooterAuthor.style.margin = "0px auto 0px auto";
+divFooterKeywords.style.width = "auto";
+divFooterKeywords.style.margin = "10px auto 0px auto";
+
+// Se añaden los elementos al DOM
+document.body.appendChild(divFooterContainer);
+document.querySelector("#footer").appendChild(divFooterAuthor);
+document.querySelector("#footer").appendChild(divFooterKeywords);
+
+let author = data.author,
+    fullname = `${author.firstName} ${author.lastName}`,
+    socialLinks = author.socialLinks;
+
+let nameElement = document.createElement("p"),
+    bioElement = document.createElement("p"),
+    titleTitles = document.createElement("p"),
+    listaTitles = document.createElement("ul"),
+    titleSkills = document.createElement("p"),
+    listaSkills = document.createElement("ul"),
+    titleQualifications = document.createElement("p"),
+    listaQualifications = document.createElement("ul");
+
+(nameElement.textContent = fullname),
+    (bioElement.textContent = author.bio),
+    (titleTitles.textContent = "Titles"),
+    (titleSkills.textContent = "Skills"),
+    (titleQualifications.textContent = "Qualifications");
+
+divFooterAuthor.appendChild(nameElement);
+// Iconos
+for (let i = 0; i < socialLinks.length; i++) {
+    let socialLinkElement = document.createElement("p");
+    socialLinkElement.innerHTML = socialLinks[i].fontawesomeIcon;
+    divFooterAuthor.appendChild(socialLinkElement);
+}
+divFooterAuthor.appendChild(bioElement);
+
+// Titles
+divFooterAuthor.appendChild(titleTitles);
+divFooterAuthor.appendChild(listaTitles);
+for (let i = 0; i < author.titles.length; i++) {
+    let elemento = document.createElement("li");
+    elemento.textContent = `${author.titles[i][0]} ${author.titles[i][1]}`;
+    listaTitles.appendChild(elemento);
+}
+
+// Skills
+divFooterAuthor.appendChild(titleSkills);
+divFooterAuthor.appendChild(listaSkills);
+for (let i = 0; i < author.skills.length; i++) {
+    let elemento = document.createElement("li");
+    elemento.innerHTML = `<i class="fa-solid fa-square-check" style="color: #00ba00;"></i> ${author.skills[i]}`;
+    listaSkills.appendChild(elemento);
+}
+
+// Qualifications
+divFooterAuthor.appendChild(titleQualifications);
+divFooterAuthor.appendChild(listaQualifications);
+for (let i = 0; i < author.qualifications.length; i++) {
+    let elemento = document.createElement("li");
+    elemento.innerHTML = `<i class="fa-light fa-book-open"></i> ${author.qualifications[i]}`;
+    listaQualifications.appendChild(elemento);
+}
+
+let keywordsTitle = document.createElement("p");
+keywordsTitle.textContent = "Keywords";
+
+divFooterKeywords.appendChild(keywordsTitle);
+
 // Cambio de fondos por cada segundo
 const fecha = document.querySelector("span");
 const horayfecha = document.getElementById("fecha");
