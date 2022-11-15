@@ -129,11 +129,14 @@ divFooterContainer.id = "footer";
 divFooterContainer.style.margin = "20px auto 0px auto";
 divFooterContainer.style.width = "800px";
 divFooterContainer.style.height = "auto";
-divFooterContainer.style.backgroundColor = "blue";
+/* divFooterContainer.style.backgroundColor = "gray"; */
 divFooterAuthor.style.width = "auto";
 divFooterAuthor.style.margin = "0px auto 0px auto";
 divFooterKeywords.style.width = "auto";
-divFooterKeywords.style.margin = "10px auto 0px auto";
+divFooterKeywords.style.margin = "10px auto 50px auto";
+
+divFooterAuthor.id = "divFooterAuthor";
+divFooterKeywords.id = "divFooterKeywords";
 
 // Se añaden los elementos al DOM
 document.body.appendChild(divFooterContainer);
@@ -146,11 +149,11 @@ let author = data.author,
 
 let nameElement = document.createElement("p"),
     bioElement = document.createElement("p"),
-    titleTitles = document.createElement("p"),
+    titleTitles = document.createElement("h3"),
     listaTitles = document.createElement("ul"),
-    titleSkills = document.createElement("p"),
+    titleSkills = document.createElement("h3"),
     listaSkills = document.createElement("ul"),
-    titleQualifications = document.createElement("p"),
+    titleQualifications = document.createElement("h3"),
     listaQualifications = document.createElement("ul");
 
 (nameElement.textContent = fullname),
@@ -159,27 +162,61 @@ let nameElement = document.createElement("p"),
     (titleSkills.textContent = "Skills"),
     (titleQualifications.textContent = "Qualifications");
 
-divFooterAuthor.appendChild(nameElement);
+// Nombre autor
+let divNombreAutor = document.createElement("div");
+divNombreAutor.id = "divNombreAutor";
+divFooterAuthor.appendChild(divNombreAutor);
+divNombreAutor.appendChild(nameElement);
+nameElement.setAttribute("style", "text-align:center; font-weight: bold; font-size: 27px; margin: 0px;");
+divNombreAutor.style.margin = "10px";
+
 // Iconos
-for (let i = 0; i < socialLinks.length; i++) {
-    let socialLinkElement = document.createElement("p");
-    socialLinkElement.innerHTML = socialLinks[i].fontawesomeIcon;
-    divFooterAuthor.appendChild(socialLinkElement);
+let divIconos = document.createElement("div");
+divIconos.id = "divIconos";
+divFooterAuthor.appendChild(divIconos);
+for (let i = 0; i < socialLinks.length - 1; i++) {
+    let elemento = document.createElement("a");
+    elemento.innerHTML = socialLinks[i].fontawesomeIcon;
+    elemento.href = socialLinks[i].url;
+    /* divIconos.innerHTML += socialLinks[i].fontawesomeIcon; */
+    divIconos.appendChild(elemento);
 }
-divFooterAuthor.appendChild(bioElement);
+// Estilos para los iconos
+document.getElementById("divIconos").setAttribute("style", "margin-bottom: 40px; text-align: center;");
+document.querySelectorAll("#divIconos > a").forEach((el) => el.setAttribute("style", "margin-right: 5px; font-size: 28px;"));
+
+// Bio
+let divBio = document.createElement("div");
+divBio.id = "divBio";
+divFooterAuthor.appendChild(divBio);
+divBio.appendChild(bioElement);
+divBio.setAttribute("style", "width: 90%; text-align:center; margin: auto;");
+
+let divListas = document.createElement("div");
+divListas.id = "divListas";
+divFooterAuthor.appendChild(divListas);
 
 // Titles
-divFooterAuthor.appendChild(titleTitles);
-divFooterAuthor.appendChild(listaTitles);
+let divTitles = document.createElement("div");
+divTitles.id = "divTitles";
+divListas.appendChild(divTitles);
+divTitles.style.width = "30%";
+
+divTitles.appendChild(titleTitles);
+divTitles.appendChild(listaTitles);
 for (let i = 0; i < author.titles.length; i++) {
     let elemento = document.createElement("li");
     elemento.textContent = `${author.titles[i][0]} ${author.titles[i][1]}`;
     listaTitles.appendChild(elemento);
 }
-
 // Skills
-divFooterAuthor.appendChild(titleSkills);
-divFooterAuthor.appendChild(listaSkills);
+let divSkills = document.createElement("div");
+divSkills.id = "divSkills";
+divListas.appendChild(divSkills);
+divSkills.style.width = "30%";
+
+divSkills.appendChild(titleSkills);
+divSkills.appendChild(listaSkills);
 for (let i = 0; i < author.skills.length; i++) {
     let elemento = document.createElement("li");
     elemento.innerHTML = `<i class="fa-solid fa-square-check" style="color: #00ba00;"></i> ${author.skills[i]}`;
@@ -187,18 +224,40 @@ for (let i = 0; i < author.skills.length; i++) {
 }
 
 // Qualifications
-divFooterAuthor.appendChild(titleQualifications);
-divFooterAuthor.appendChild(listaQualifications);
+let divQ = document.createElement("div");
+divQ.id = "divQ";
+divListas.appendChild(divQ);
+divQ.style.width = "40%";
+
+divQ.appendChild(titleQualifications);
+divQ.appendChild(listaQualifications);
 for (let i = 0; i < author.qualifications.length; i++) {
     let elemento = document.createElement("li");
     elemento.innerHTML = `<i class="fa-light fa-book-open"></i> ${author.qualifications[i]}`;
     listaQualifications.appendChild(elemento);
 }
 
-let keywordsTitle = document.createElement("p");
-keywordsTitle.textContent = "Keywords";
+// Estilos para las listas Titles, Skills y Qualifications
+document.getElementById("divListas").setAttribute("style", "overflow: hidden;");
+document.querySelectorAll("#divListas > div").forEach((div) => div.setAttribute("style", "float: left; margin-right: 20px;"));
 
+// Keywords
+divFooterKeywords.style.margintop = "50px";
+let keywordsTitle = document.createElement("h3");
+keywordsTitle.textContent = "Keywords";
 divFooterKeywords.appendChild(keywordsTitle);
+
+let listaKeywords = document.createElement("ul"),
+    keywordsLength = data.keywords.length;
+divFooterKeywords.appendChild(listaKeywords);
+listaKeywords.style.overflow = "hidden";
+
+for (let i = 0; i < keywordsLength; i++) {
+    let elemento = document.createElement("li");
+    elemento.textContent = "#" + data.keywords[i];
+    elemento.setAttribute("style", "display: block; float: left; margin: 3px; background-color: #e3e114; border-radius: 10px; padding: 2px;");
+    listaKeywords.appendChild(elemento);
+}
 
 // Cambio de fondos por cada segundo
 const fecha = document.querySelector("span");
