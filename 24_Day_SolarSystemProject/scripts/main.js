@@ -40,8 +40,9 @@ let inputTag = document.createElement("input"),
     button = document.createElement("button"),
     planetsArr = ["earth", "jupiter", "mars", "mercury", "moon", "neptune", "pluto", "saturn", "uranus", "venus"];
 
-button.textContent = "Calculate weight";
 inputTag.setAttribute("placeholder", "Mass in Kilogram");
+selectTag.id = "planetsSelect";
+button.textContent = "Calculate weight";
 
 divBuscador.appendChild(inputTag);
 divBuscador.appendChild(selectTag);
@@ -65,3 +66,16 @@ for (const planet of planetsArr) {
 let contentContainer = document.createElement("div");
 contentContainer.id = "contentContainer";
 divContent.appendChild(contentContainer);
+
+/**
+ * EventListener
+ */
+button.addEventListener("click", () => {
+    console.log("click");
+    let image = document.createElement("img"),
+        selectValue = selectTag.options[selectTag.selectedIndex].value;
+
+    image.setAttribute("src", `images/${selectValue}.png`);
+    image.setAttribute("alt", `${selectValue} planet`);
+    contentContainer.appendChild(image);
+});
