@@ -1,8 +1,19 @@
 /**
- * Body Styles
+ * Functions
  */
-document.body.style.backgroundImage = "url(images/galaxy.gif)";
-document.body.style.color = "white";
+const resetContent = () => {
+    let content = document.getElementById("contentContainer"),
+        childs = content.childNodes;
+    console.log(childs);
+    for (const child of childs) {
+        console.log(child);
+        contentContainer.removeChild(child);
+    }
+};
+
+const validarInput = () => {
+    console.log("validar");
+};
 
 /**
  * Containers: titulo, buscador y content
@@ -63,19 +74,77 @@ for (const planet of planetsArr) {
 /**
  * Content container
  */
-let contentContainer = document.createElement("div");
+let contentContainer = document.createElement("div"),
+    planetContainer = document.createElement("div"),
+    infoContainer = document.createElement("div");
+
 contentContainer.id = "contentContainer";
+planetContainer.id = "planet";
+infoContainer.id = "info";
+
 divContent.appendChild(contentContainer);
 
 /**
  * EventListener
  */
 button.addEventListener("click", () => {
-    console.log("click");
+    resetContent();
+    //console.log("click");
     let image = document.createElement("img"),
-        selectValue = selectTag.options[selectTag.selectedIndex].value;
+        selectValue = selectTag.options[selectTag.selectedIndex].value,
+        info = document.createElement("p"),
+        br = document.createElement("br");
+
+    br.style.clear = "both";
+
+    contentContainer.appendChild(planetContainer);
+    contentContainer.appendChild(infoContainer);
+    contentContainer.appendChild(br);
 
     image.setAttribute("src", `images/${selectValue}.png`);
     image.setAttribute("alt", `${selectValue} planet`);
-    contentContainer.appendChild(image);
+    planetContainer.appendChild(image);
+
+    info.textContent = "Info planeta";
+    infoContainer.appendChild(info);
 });
+
+/**
+ * Hacer:
+ * Función para resetear el content
+ * Comprobar que el valor del select sea correcto
+ * Validación de input
+ */
+
+/**
+ * Styles
+ */
+document.body.style.backgroundImage = "url(images/galaxy.gif)";
+document.body.style.color = "white";
+
+// Titulo
+divTitulo.style.textAlign = "center";
+divTitulo.style.marginBottom = "100px";
+
+// Buscador
+divBuscador.style.textAlign = "center";
+divBuscador.style.marginBottom = "15px";
+inputTag.style.marginRight = "10px";
+selectTag.style.marginRight = "10px";
+
+// Content
+divContent.style.width = "70%";
+divContent.style.margin = "auto";
+divContent.style.backgroundColor = "gray";
+divContent.style.opacity = "50%";
+divContent.style.overflow = "hidden";
+
+planetContainer.style.width = "49%";
+planetContainer.style.margin = "0px";
+planetContainer.style.padding = "0px";
+planetContainer.style.float = "left";
+
+infoContainer.style.width = "49%";
+infoContainer.style.margin = "0px";
+infoContainer.style.padding = "0px";
+infoContainer.style.float = "left";
