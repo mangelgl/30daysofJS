@@ -67,8 +67,19 @@ const generarFilas = () => {
     return filasArr;
 };
 
-const validarInput = () => {
-    console.log("validar");
+const validarInput = (input) => {
+    let erroresValidacion = [];
+    if (input.length == 0) {
+        erroresValidacion.push({ code: 0, message: "Introduce un valor para generar números." });
+    } else if (isNaN(input)) {
+        erroresValidacion.push({ code: 1, message: "El valor que se introduzca debe ser un número." });
+    }
+
+    return erroresValidacion;
+};
+
+const calcularPeso = (peso, planeta) => {
+    console.log("calcular peso");
 };
 
 /**
@@ -190,11 +201,18 @@ tablaPlaneta.style.padding = "0px";
  * EventListener
  */
 button.addEventListener("click", () => {
-    resetContent();
+    let inputValue = document.getElementById("inputTag").value,
+        validacion = validarInput(inputValue);
 
-    contentContainer.appendChild(tablaPlaneta);
-    let filas = generarFilas();
-    filas.forEach((fila) => {
-        tablaPlaneta.appendChild(fila);
-    });
+    if (validacion.length > 0) {
+        console.log(`Error code: ${validacion[0].code} - ${validacion[0].message}`);
+    } else {
+        resetContent();
+
+        contentContainer.appendChild(tablaPlaneta);
+        let filas = generarFilas();
+        filas.forEach((fila) => {
+            tablaPlaneta.appendChild(fila);
+        });
+    }
 });
