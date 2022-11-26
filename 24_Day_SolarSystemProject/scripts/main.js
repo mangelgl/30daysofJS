@@ -25,27 +25,39 @@ const generarFilas = () => {
         let columna = document.createElement("td"),
             image = document.createElement("img"),
             infoContainer = document.createElement("div"),
-            infoText = document.createElement("p");
-        nombrePlaneta = selectTag.options[selectTag.selectedIndex].value;
+            infoText = document.createElement("p"),
+            infoSubText = document.createElement("div"),
+            nombrePlaneta = selectTag.options[selectTag.selectedIndex].value;
 
         image.setAttribute("src", `images/${nombrePlaneta}.png`);
         image.setAttribute("alt", `${nombrePlaneta} planet`);
 
         infoContainer.id = "infoContainer";
-        infoText.textContent = "INFORMACIÓN PLANETA";
+        infoText.innerHTML = "The weight of the object in <b>" + nombrePlaneta.toUpperCase() + "</b>";
+        infoSubText.innerHTML = '<p style="margin: 0px; padding: 40px; font-size: 24px;"><b>7.00N</b></p>';
         infoContainer.appendChild(infoText);
-        infoContainer.style.width = "fit-content";
-        infoContainer.style.padding = "10px";
+        infoContainer.appendChild(infoSubText);
+
+        infoContainer.style.width = "500px";
+        infoContainer.style.padding = "20px";
+        infoContainer.style.margin = "0px auto";
+        infoContainer.style.backgroundColor = "rgba(92, 92, 92, 0.6)";
+
+        infoSubText.style.width = "fit-content";
+        infoSubText.style.borderRadius = "50%";
+        infoSubText.style.backgroundColor = "rgba(92, 92, 92, 0.3)";
+        infoSubText.style.color = "white";
+        infoSubText.style.margin = "0px auto";
 
         if (i == 0) {
             columna.appendChild(image);
             columna.id = "planetImage";
-            columna.style.width = "40%";
+            columna.style.width = "fit-content";
             columna.style.padding = "50px";
         } else {
             columna.appendChild(infoContainer);
             columna.id = "planetInfo";
-            columna.style.width = "60%";
+            columna.style.width = "50%";
             columna.style.textAlign = "center";
         }
         fila.appendChild(columna);
@@ -185,25 +197,4 @@ button.addEventListener("click", () => {
     filas.forEach((fila) => {
         tablaPlaneta.appendChild(fila);
     });
-    //console.log("click");
-    /*     let image = document.createElement("img"),
-        info = document.createElement("p"),
-        br = document.createElement("br"),
-        selectValue = selectTag.options[selectTag.selectedIndex].value;
-
-    image.setAttribute("src", `images/${selectValue}.png`);
-    image.setAttribute("alt", `${selectValue} planet`);
-    info.textContent = "Info planeta"; */
-
-    /*     planetContainer.appendChild(image);
-    infoContainer.appendChild(info); */
-    /*     contentContainer.appendChild(image);
-    contentContainer.appendChild(info);
-    contentContainer.appendChild(br);
-
-    contentContainer.style.minHeight = "600px";
-    contentContainer.style.height = "600px";
-    info.style.display = "table-cell";
-    info.style.verticalAlign = "middle";
-    br.style.clear = "both"; */
 });
