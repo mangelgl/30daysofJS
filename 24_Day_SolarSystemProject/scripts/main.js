@@ -76,13 +76,18 @@ for (const planet of planetsArr) {
  */
 let contentContainer = document.createElement("div"),
     planetContainer = document.createElement("div"),
-    infoContainer = document.createElement("div");
+    infoContainer = document.createElement("div"),
+    massContainer = document.createElement("div");
 
 contentContainer.id = "contentContainer";
 planetContainer.id = "planet";
 infoContainer.id = "info";
+massContainer.id = "mass";
+
+massContainer.innerHTML = '<p style="margin: 0px; color: white; font-size: 28px;">Mass is required</p>';
 
 divContent.appendChild(contentContainer);
+contentContainer.appendChild(massContainer);
 
 /**
  * EventListener
@@ -121,22 +126,31 @@ button.addEventListener("click", () => {
  */
 document.body.style.backgroundImage = "url(images/galaxy.gif)";
 document.body.style.color = "white";
+document.body.style.fontFamily = "Source Sans Pro";
 
 // Titulo
 divTitulo.style.textAlign = "center";
-divTitulo.style.marginBottom = "100px";
+divTitulo.style.margin = "50px auto";
 
 // Buscador
 divBuscador.style.textAlign = "center";
-divBuscador.style.marginBottom = "15px";
+divBuscador.style.margin = "20px auto";
+
 inputTag.style.marginRight = "10px";
+inputTag.style.width = "200px";
+inputTag.style.padding = "10px";
+
 selectTag.style.marginRight = "10px";
+selectTag.style.padding = "10px";
+selectTag.style.borderRadius = "4px";
+
+button.style.padding = "10px";
 
 // Content
 divContent.style.width = "70%";
 divContent.style.margin = "auto";
-divContent.style.backgroundColor = "gray";
-divContent.style.opacity = "50%";
+divContent.style.backgroundColor = "rgba(111, 111, 111, 0.4)";
+/* divContent.style.opacity = "0.3"; */
 divContent.style.overflow = "hidden";
 
 planetContainer.style.width = "49%";
@@ -148,3 +162,10 @@ infoContainer.style.width = "49%";
 infoContainer.style.margin = "0px";
 infoContainer.style.padding = "0px";
 infoContainer.style.float = "left";
+
+massContainer.style.width = "30%";
+massContainer.style.padding = "20px";
+massContainer.style.textAlign = "center";
+massContainer.style.margin = "25px auto";
+massContainer.style.backgroundColor = "rgba(92, 92, 92, 0.6)";
+/* massContainer.style.opacity = "0.6"; */
