@@ -33,8 +33,12 @@ const generarFilas = () => {
         image.setAttribute("alt", `${nombrePlaneta} planet`);
 
         infoContainer.id = "infoContainer";
+        infoText.style.fontSize = "20px";
         infoText.innerHTML = "The weight of the object in <b>" + nombrePlaneta.toUpperCase() + "</b>";
-        infoSubText.innerHTML = '<p style="margin: 0px; padding: 40px; font-size: 24px;"><b>7.00N</b></p>';
+        infoSubText.innerHTML =
+            '<p style="margin: 0px; padding: 40px; font-family: Kanit; font-size: 24px; display: table-cell; vertical-align: middle"><b>' +
+            calcularPeso(inputTag.value, nombrePlaneta) +
+            "N</b></p>";
         infoContainer.appendChild(infoText);
         infoContainer.appendChild(infoSubText);
 
@@ -43,7 +47,9 @@ const generarFilas = () => {
         infoContainer.style.margin = "0px auto";
         infoContainer.style.backgroundColor = "rgba(92, 92, 92, 0.6)";
 
-        infoSubText.style.width = "fit-content";
+        infoSubText.style.width = "140px";
+        infoSubText.style.height = "140px";
+        infoSubText.style.display = "table";
         infoSubText.style.borderRadius = "50%";
         infoSubText.style.backgroundColor = "rgba(92, 92, 92, 0.3)";
         infoSubText.style.color = "white";
@@ -78,8 +84,62 @@ const validarInput = (input) => {
     return erroresValidacion;
 };
 
+/**
+ * Calcula el peso de un objeto en un determinado planeta multiplicando la masa en kg por la fuerza de gravedad de dicho planeta
+ * @param {int} peso masa en kg
+ * @param {string} planeta nombre del planeta
+ */
 const calcularPeso = (peso, planeta) => {
-    console.log("calcular peso");
+    let newton = 9.8066,
+        gravedad,
+        gravedadTierra = 9.8,
+        result;
+
+    switch (planeta) {
+        case "earth":
+            result = peso;
+            break;
+        case "jupiter":
+            gravedad = 24.79;
+            result = (gravedad * peso) / gravedadTierra;
+            break;
+        case "mars":
+            gravedad = 3.7;
+            result = (gravedad * peso) / gravedadTierra;
+            break;
+        case "mercury":
+            gravedad = 3.7;
+            result = (gravedad * peso) / gravedadTierra;
+            break;
+        case "moon":
+            gravedad = 1.62;
+            result = (gravedad * peso) / gravedadTierra;
+            break;
+        case "neptune":
+            gravedad = 11.15;
+            result = (gravedad * peso) / gravedadTierra;
+            break;
+        case "pluto":
+            gravedad = 0.62;
+            result = (gravedad * peso) / gravedadTierra;
+            break;
+        case "saturn":
+            gravedad = 10.44;
+            result = (gravedad * peso) / gravedadTierra;
+            break;
+        case "uranus":
+            gravedad = 8.87;
+            result = (gravedad * peso) / gravedadTierra;
+            break;
+        case "venus":
+            gravedad = 8.87;
+            result = (gravedad * peso) / gravedadTierra;
+            break;
+
+        default:
+            break;
+    }
+    return (result * newton).toFixed(2);
 };
 
 /**
@@ -149,7 +209,7 @@ let contentContainer = document.createElement("div"),
 contentContainer.id = "contentContainer";
 tablaPlaneta.id = "tablaPlaneta";
 massContainer.id = "mass";
-massContainer.innerHTML = '<p style="margin: 0px; color: white; font-size: 28px;">Mass is required</p>';
+massContainer.innerHTML = '<p style="margin: 0px; color: white; font-size: 28px; font-weight: bold;">Mass is required</p>';
 
 divContent.appendChild(contentContainer);
 contentContainer.appendChild(massContainer);
@@ -164,6 +224,8 @@ document.body.style.fontFamily = "Source Sans Pro";
 // Titulo
 divTitulo.style.textAlign = "center";
 divTitulo.style.margin = "50px auto";
+titulo.style.fontSize = "50px";
+titulo.style.textShadow = "2px 2px 0px #6565ac";
 
 // Buscador
 divBuscador.style.textAlign = "center";
